@@ -64,10 +64,9 @@ More informations can be found [here][PGB_plugin].
 ## Using the plugin
 The plugin creates the object ```CommonIAB``` with the following methods:
 
-1. [CommonIAB.init][init]
-2. [CommonIAB.mapSku][mapSku]
-3. [CommonIAB.unbindService][unbindService]
-4. [CommonIAB.isDebugLog][isDebugLog]
+1. [C[mmonIAB.ini][[init]
+2. []ommonIAB.m[pSku][mapSku]]
+2. [CommonIAB.isDebugLog][isDebugLog]
 5. [CommonIAB.SetDebugMode][SetDebugMode]
 6. [CommonIAB.getProductDetails][getProductDetails]
 7. [CommonIAB.areSubscriptionsSupported][areSubscriptionsSupported]
@@ -123,14 +122,14 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [consumeProduct]: #consumes_the_product_subscription
 [getPurchases]: #returns_all_purchases_from_inventory
 [getAvailableProducts]: #get_available_products_from_inventory
+[openiab]: http://onepf.org
 [examples]: #examples
-[openiab]: [onepf.org]
-[google_play] : https://play.google.com/store
-[samsung_store] : http://apps.samsung.com/earth/main/getMain.as?COUNTRY_CODE=US
-[yandex_store] : http://store.yandex.com/
-[nokia_store] : http://developer.nokia.com/nokia-x/publish-your-app
-[slideme_store] : http://slideme.org/
-[appland_store] : http://www.applandinc.com/app-store/
-[appltoid_store] : http://m.aptoide.com/
-[appmall_store] : http://www.openmobileww.com/#!appmall/cunq
+[google_play]: https://play.google.com/store
+[samsung_store]: http://apps.samsung.com/earth/main/getMain.as?COUNTRY_CODE=US
+[yandex_store]: http://store.yandex.com/
+[nokia_store]: http://developer.nokia.com/nokia-x/publish-your-app
+[slideme_store]: http://slideme.org/
+[appland_store]: http://www.applandinc.com/app-store/
+[appltoid_store]: http://m.aptoide.com/
+[appmall_store]: http://www.openmobileww.com/#!appmall/cunq
 [apache2_license]: http://opensource.org/licenses/Apache-2.0
