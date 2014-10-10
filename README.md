@@ -106,12 +106,13 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [mapSku]: #does_association_between_local_sku_store_sku
 [unbindService]: #removes_event_handler_and_dispose_the_library
 [isDebugLog]: #checks_debug_mode_indication
-[SetDebugMode-specific-properties]: #set_on_off_debug_mode
+[SetDebugMode]: #set_on_off_debug_mode
 [getProductDetails]: #gets_all_owned_items_from_android_store
 [areSubscriptionsSupported]: #are_subscriptions_supported
 [purchaseProduct]: #purchases_product_with_associated_sku
 [purchaseSubscription]: #purchases_subscription_with_selected_sku
 [consumeProduct]: #consumes_the_product_subscription
 [getPurchases]: #returns_all_purchases_from_inventory
+[getAvailableProducts]: #get_available_products_from_inventory
 [examples]: #examples
 [apache2_license]: http://opensource.org/licenses/Apache-2.0
