@@ -8,11 +8,21 @@ Users typically make an in-app purchase in order to access special content or fe
 In-app purcahses are ideally suited for application that use aditional optional model, such as access to aditional content, special options, sunscribtion.
 
 ### Plugin's Purpose
-The purpose of the plugin is to create an Android stores independent javascript interface for [Cordova][cordova] based mobile applications to access the specific API on each Android store.
+The purpose of the plugin is to create an Android stores independent javascript interface for [Cordova][cordova] based on [openiab][openiab] forked library. 
+
+The following Android Stores are supported:
+- [Google play][google_play]
+- [Samsung][samsung_store]
+- [Nokia][nokia_store]
+- [Yandex.Store][yandex_store]
+- [SlideME][slideme_store]
+- [Appland][appland_store]
+- [Apptoid][appltoid_store]
+- [AppMall][appmall_store]
 
 ## Supported Platforms
 - **Android** *(SDK >=10)*<br>
-See [In-app purchases Guide][android_in_app_purchases_guide] for detailed informations and screenshots.
+See [In-app purchases Guide][android_notification_guide] for detailed informations and screenshots.
 
 
 ## Installation
@@ -94,7 +104,6 @@ This software is released under the [Apache 2.0 License][apache2_license].
 
 
 [cordova]: https://cordova.apache.org
-[android_in_app_purchases_guide]: http://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/WhatAreRemoteNotif.html
 [android_notification_guide]: http://developer.android.com/google/play/billing/billing_overview.html
 [apache_device_plugin]: https://github.com/apache/cordova-plugin-device
 [CLI]: http://cordova.apache.org/docs/en/3.0.0/guide_cli_index.md.html#The%20Command-line%20Interface
@@ -115,4 +124,13 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [getPurchases]: #returns_all_purchases_from_inventory
 [getAvailableProducts]: #get_available_products_from_inventory
 [examples]: #examples
+[openiab]: [onepf.org]
+[google_play] : https://play.google.com/store
+[samsung_store] : http://apps.samsung.com/earth/main/getMain.as?COUNTRY_CODE=US
+[yandex_store] : http://store.yandex.com/
+[nokia_store] : http://developer.nokia.com/nokia-x/publish-your-app
+[slideme_store] : http://slideme.org/
+[appland_store] : http://www.applandinc.com/app-store/
+[appltoid_store] : http://m.aptoide.com/
+[appmall_store] : http://www.openmobileww.com/#!appmall/cunq
 [apache2_license]: http://opensource.org/licenses/Apache-2.0
