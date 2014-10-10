@@ -85,14 +85,59 @@ document.addEventListener('deviceready', function () {
 }, false);
 ```
 
+# Support
+
+## Reporting issues
+
+If you have an issue with the plugin please check the following first:
+- You are using the latest version of the Plugin Javascript & platform-specific Java from this repository.
+- You have installed the Javascript & platform-specific Java correctly.
+- You have included the correct version of the cordova Javascript and CommonIABPlugin.js and got the path right.
+- You have registered the plugin properly in `config.xml`.
+
+If you still cannot get something to work:
+- Make the simplest test program you can to demonstrate the issue, including the following characteristics:
+  - it completely self-contained, i.e. it is using no extra libraries beyond cordova & CommonIABPlugin.js;
+
+Then you can post the issue to the [raise a new issue](https://github.com/ClausKinz/CommonIAB/issues/new).
+
+## Community
+
+If you have any questions about the plugin please post it to the [http://stackoverflow.com/ with CommonIAB tag](http://stackoverflow.com/).
+
+## Support priorities
+
+**High priority:**
+
+1. Stability is first: immediate resolution or workaround for stability issues (crashing) is the goal.
+2. Correctness: any issue with correctness should result in a new testcase together with the bug fix.
+
+**Low priority:** issues with the API or application integration will be given lower priority.
+
 
 ## Contributing
 
+**WARNING:** Please do NOT propose changes from your `master` branch. In general changes will be rebased using `git rebase` or `git cherry-pick` and not merged.
+
+- Testimonials of apps that are using this plugin would be especially helpful.
+- Reporting issues at [https://github.com/ClausKinz/CommonIAB / issues](https://github.com/ClausKinz/CommonIAB/issues) can help improve the quality of this plugin.
+- Patches with bug fixes are helpful, especially when submitted with test code.
+- Other enhancements welcome for consideration, when submitted with test code and will work for all supported platforms. Increase of complexity should be avoided.
+- All contributions may be reused by [@ClausKinz (Claus Schmidt)](https://github.com/ClausKinz) under another license in the future. Efforts will be taken to give credit for major contributions but it will not be guaranteed.
+
+#How to involved:
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Major branches
+
+- `common-src` - source for Android version
+- `master-src` - source for Android version
+- `master-rc` - pre-release version, including source for CommonIAB library classes
+- `master` - version for release, will be included in Cordova build.
 
 
 ## License
