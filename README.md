@@ -102,20 +102,6 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [PGB_plugin]: https://build.phonegap.com/plugins/413
 [changelog]: CHANGELOG.md
 [todo_list]: ../../issues/1
-
-1. [CommonIAB.init][init]
-2. [CommonIAB.mapSku][mapSku]
-3. [CommonIAB.unbindService][unbindService]
-4. [CommonIAB.isDebugLog][isDebugLog]
-5. [CommonIAB.SetDebugMode][SetDebugMode]
-6. [CommonIAB.getProductDetails][getProductDetails]
-7. [CommonIAB.areSubscriptionsSupported][areSubscriptionsSupported]
-8. [CommonIAB.purchaseProduct][purchaseProduct]
-9. [CommonIAB.purchaseSubscription][purchaseSubscription]
-10. [CommonIAB.consumeProduct][consumeProduct]
-11. [CommonIAB.getPurchases][getPurchases]
-12. [CommonIAB.getAvailableProducts][getAvailableProducts]
-
 [init]: #initializes_the_library_using_ConfigIAB
 [mapSku]: #does_association_between_local_sku_store_sku
 [unbindService]: #removes_event_handler_and_dispose_the_library
