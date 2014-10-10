@@ -64,8 +64,8 @@ More informations can be found [here][PGB_plugin].
 ## Using the plugin
 The plugin creates the object ```CommonIAB``` with the following methods:
 
-1. [CommonIAB.ini][[init]
-2. [CommonIAB.mapSku][mapSku]]
+1. [CommonIAB.ini][init]
+2. [CommonIAB.mapSku][mapSku]
 2. [CommonIAB.isDebugLog][isDebugLog]
 5. [CommonIAB.SetDebugMode][SetDebugMode]
 6. [CommonIAB.getProductDetails][getProductDetails]
