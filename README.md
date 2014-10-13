@@ -137,7 +137,7 @@ Call the following code inside onDeviceReady(), because only after device ready 
 ```
 
 ### Set up SKUs
-Each Android Store has own rules of named SKUs. Thus to implification of operations between different stores and application logic, we use conception of "local SKU". "local SKU" is used to manage SKUs for different stores. ComminIAB does association between local sku and selected android store automaticaly (on depends of what store is used for your app). 
+Each Android Store has own rules of named SKUs. Thus to implification of operations between different stores and application logic, we use conception of "local SKU". "local SKU" is used to manage SKUs for different stores. CommonIAB does association between local sku and selected android store automaticaly (on depends of what store is used for your app). 
 
 `CommonIAB.mapSku(successCallback, errorCallback, sku, storeName, storeSku)`
 
@@ -218,7 +218,7 @@ function purchaseSubscription() {
 }
 ```
 
-Manage purchases/products
+### Manage purchases/products
 `CommonIAB.getProductDetails(successCallback, errorCallback)`
 Gets Product details information from the android store server using SKUs from inventory. This method may block or take long to execute. Do not call from a UI thread. TODO: rewrite to the non-blocking version refreshInventoryAsync The function passes one argument to successCallback: {Object} result in json
  * **Parameters:**
