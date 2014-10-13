@@ -218,7 +218,7 @@ function purchaseSubscription() {
 
 ### Manage purchases/products
 `CommonIAB.getProductDetails(successCallback, errorCallback)`<br>
-Gets Product details information from the android store server using SKUs from inventory. This method may block or take long to execute. Do not call from a UI thread. TODO: rewrite to the non-blocking version refreshInventoryAsync The function passes one argument to successCallback: {Object} result in json
+Gets Product details information from the android store server using SKUs from inventory. This method may block or take long to execute. Do not call from a UI thread. The function passes one argument to successCallback: {Object} result in json
  * **Parameters:**
    * `successCallback` — `Function` — Success handler for processing result
    * `errorCallback` — `Function` — Error handler for processing error
@@ -289,7 +289,23 @@ Switches on debug mode for in app billing functionality
 
 Full example is available on [examples/basic/index.html][example_sources]
 
+### Testing your app
+- Create a release apk of your app and sign it.
+- Create a new application in the Developer Console of selected Android store.
+- Upload your apk
+- Enter the app description, logo, etc. then click on save
+- Add in-app purchases items from the Developer Console (activate them but do not publish the app)
+- Click on Services and APIs to get your public license key
+- Set your public license key up in ConfigIAB 
+- Wait 6-8 hours
+- Install the signed app on your test device in release mode. The Android Store Account on the test device should not be the same as the developer account).
+- Read carefully the Android store testing guide to learn how to test your app. More information you can find on [Wiki][wiki_page]
+- Test your purchases
+
 # Support
+
+## Common issues
+If you have an issue, make sure that you can answer to theses questions on [Wiki][wiki_page] page or [http://stackoverflow.com/ with CommonIAB tag](http://stackoverflow.com/)
 
 ## Reporting issues
 
