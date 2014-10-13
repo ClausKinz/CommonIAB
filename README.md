@@ -10,7 +10,7 @@ In-app purcahses are ideally suited for application that use aditional optional 
 ### Plugin's Purpose
 The purpose of the plugin is to create an Android stores independent javascript interface for [Cordova][cordova] based on [openiab][openiab] forked library. 
 
-The following Android Stores are supported:
+## Supported Android Stores:
 - [Google play][google_play]
 - [Samsung][samsung_store]
 - [Nokia][nokia_store]
@@ -96,8 +96,7 @@ If you have an issue with the plugin please check the following first:
 - You have registered the plugin properly in `config.xml`.
 
 If you still cannot get something to work:
-- Make the simplest test program you can to demonstrate the issue, including the following characteristics:
-  - it completely self-contained, i.e. it is using no extra libraries beyond cordova & CommonIABPlugin.js;
+- Make the simplest test program you can to demonstrate the issue, including completely self-contained, i.e. it is using no extra libraries beyond cordova & CommonIABPlugin.js;
 
 Then you can post the issue to the [raise a new issue](https://github.com/ClausKinz/CommonIAB/issues/new).
 
@@ -122,7 +121,7 @@ If you have any questions about the plugin please post it to the [http://stackov
 - Testimonials of apps that are using this plugin would be especially helpful.
 - Reporting issues at [https://github.com/ClausKinz/CommonIAB / issues](https://github.com/ClausKinz/CommonIAB/issues) can help improve the quality of this plugin.
 - Patches with bug fixes are helpful, especially when submitted with test code.
-- Other enhancements welcome for consideration, when submitted with test code and will work for all supported platforms. Increase of complexity should be avoided.
+- Other enhancements welcome for consideration, when submitted with test code and will work for all supported android stores. Increase of complexity should be avoided.
 - All contributions may be reused by [@ClausKinz (Claus Schmidt)](https://github.com/ClausKinz) under another license in the future. Efforts will be taken to give credit for major contributions but it will not be guaranteed.
 
 #How to involved:
@@ -131,6 +130,11 @@ If you have any questions about the plugin please post it to the [http://stackov
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Code Style  for Contributors
+Please use the following Code Style:
+- [Google Code Style Guidelines for Contributors][code_style_java]
+- [Google JavaScript Style Guide][code_style_js]
 
 ## Major branches
 
@@ -168,6 +172,8 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [getPurchases]: #returns_all_purchases_from_inventory
 [getAvailableProducts]: #get_available_products_from_inventory
 [openiab]: http://onepf.org
+[[code_style_java]:http://source.android.com/source/code-style.html
+[code_style_js]:https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types
 [examples]: #examples
 [google_play]: https://play.google.com/store
 [samsung_store]: http://apps.samsung.com/earth/main/getMain.as?COUNTRY_CODE=US
