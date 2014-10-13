@@ -137,7 +137,7 @@ Call the following code inside onDeviceReady(), because only after device ready 
 ```
 
 ### Set up SKUs
-Each Android Store has own rules of named SKUs. Thus to implification of operations between different stores and application logic, we use conception of "local SKU". "local SKU" is used to manage with SKU. ComminIAB does association local sku and selected android store automaticaly (on depends of what store is used for your app). 
+Each Android Store has own rules of named SKUs. Thus to implification of operations between different stores and application logic, we use conception of "local SKU". "local SKU" is used to manage SKUs for different stores. ComminIAB does association between local sku and selected android store automaticaly (on depends of what store is used for your app). 
 
 `CommonIAB.mapSku(successCallback, errorCallback, sku, storeName, storeSku)`
 
@@ -160,11 +160,64 @@ Each Android Store has own rules of named SKUs. Thus to implification of operati
 
     CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_PREMIUM,
 		     ConfigIAB.StoreNameEnum.YANDEX, "sku_premium_yandex");
-    
     CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_SUBSCRIPTION,
 		     ConfigIAB.StoreNameEnum.YANDEX, "sku_subscription_yandex");
 ```
 ### Do purchases/subscriptions
+`CommonIAB.purchaseProduct(successCallback, errorCallback, sku, developerPayload)`
+Purchases the product with the selected SKU and developerPayload The function passes one argument to successCallback: {Object} purchased item in json
+
+ * **Parameters:**
+   * `successCallback` — `Function` — Success handler for processing result
+   * `errorCallback` — `Function` — Error handler for processing error
+   * `sku` — `String` — SKU product id
+   * `developerPayload` — `String` — Token to verify your purchase request to store
+
+`CommonIAB.purchaseSubscription(successCallback, errorCallback, sku, developerPayload)`
+
+Purchases the subscription with the selected SKU and developerPayload The function passes one argument to successCallback: {Object} purchased item in json
+
+ * **Parameters:**
+   * `successCallback` — `Function` — Success handler for processing result
+   * `errorCallback` — `Function` — Error handler for processing error
+   * `sku` — `String` — SKU product id
+   * `developerPayload` — `String` — token to verify your subscription request to store
+
+`CommonIAB.consumeProduct(successCallback, errorCallback, purchase)`
+
+Consumes the purchased product The function passes one argument to successCallback: {Object} purchased item in json
+
+ * **Parameters:**
+   * `successCallback` — `Function` — Success handler for processing result
+   * `errorCallback` — `Function` — Error handler for processing error
+   * `purchase` — `String` — Purchased product info in json
+
+#### Example code
+```javascript
+/** Purchases items with selected SKUs
+ */
+function purchaseProduct() {
+	developerPayload = "";
+	CommonIAB.purchaseProduct(purchaseProductSuccessHandler, purchaseProductErrorHandler,
+		    SKU_PREMIUM, developerPayload);
+}
+
+/** Consumes selected purchased item.
+ */
+function consumeProduct(lastPurchasedItem) {
+        CommonIAB.consumeProduct(commonSuccessHandler, commonErrorHandler, lastPurchasedItem);
+}
+
+/** Purchases subscription with selected SKUs, use real SKU.
+ *  Does not have Google fake SKUs for subscription.
+ */
+function purchaseSubscription() {
+	// need to use only actual SKUs,standard test SKUs from Google do not work.
+        developerPayload = "";
+	CommonIAB.purchaseSubscription(commonSuccessHandler, commonErrorHandler, SKU_SUBSCRIPTION, developerPayload);
+}
+```
+
 
 ### Manage purchases/products
 
