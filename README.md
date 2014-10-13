@@ -67,19 +67,7 @@ More informations can be found [here][PGB_plugin].
 - See the [v0.1.x TODO List][todo_list] for upcomming changes and other things.
 
 ## Using the plugin
-The plugin creates the object ```CommonIAB``` with the following methods:
-
-1. [CommonIAB.init][init]
-2. [CommonIAB.mapSku][mapSku]
-2. [CommonIAB.isDebugLog][isDebugLog]
-5. [CommonIAB.SetDebugMode][SetDebugMode]
-6. [CommonIAB.getProductDetails][getProductDetails]
-7. [CommonIAB.areSubscriptionsSupported][areSubscriptionsSupported]
-8. [CommonIAB.purchaseProduct][purchaseProduct]
-9. [CommonIAB.purchaseSubscription][purchaseSubscription]
-10. [CommonIAB.consumeProduct][consumeProduct]
-11. [CommonIAB.getPurchases][getPurchases]
-12. [CommonIAB.getAvailableProducts][getAvailableProducts]
+The plugin creates  objects ```CommonIAB``` and ```ConfigIAB```. ```ConfigIAB``` uses to set up all In-App purchases parameters to initialize the library. More information is available on [Wiki page][wiki_page]. 
 
 ### Plugin initialization
 The plugin and its methods are not available before the *deviceready* event has been fired.
@@ -91,15 +79,54 @@ document.addEventListener('deviceready', function () {
 ```
 
 The plugin must use ```ConfigIAB``` class to set up initial parameters for correct working of In-App Billing.<br>
-ConfigIAB has the following methods:<br>
-- ConfigIAB.addStoreKeys
-- ConfigIAB.addPreferredStoreNames
-- ConfigIAB.setCheckInventory
-- ConfigIAB.setDiscoveryTimeout
-- ConfigIAB.setVerifyMode
-- ConfigIAB.setCheckInventoryTimeout
-- ConfigIAB.setSamsungCertificationRequestCode
-- ConfigIAB.toJson
+
+#### Example code
+Call the following code inside onDeviceReady(), because only after device ready you will have the plugin working.
+```javascript
+     function onDeviceReady() {
+        config();
+    }
+
+    /** Default success handler for operations.
+     * @param {String|Object} result Data to process
+     */
+	function commonSuccessHandler (result) {
+    	var strResult = "";
+        if(typeof result === 'object') {
+        	strResult = JSON.stringify(result);
+        } else {
+        	strResult = result;
+        }
+        logger("SUCCESS: \r\n"+strResult );
+	}
+			
+    /** Default error handler for operations.
+     * @param {String|Object} error Error to process
+     */
+	function commonErrorHandler (error) {
+		logger("ERROR: \r\n"+error );
+	}
+
+    /** Configures and initializes in app purchase for different stores.
+     *  To configure using ConfigIAB class, to init using CommonIAB
+     *  @see #ConfigIAB
+     *  @see #CommonIAB.init
+     */
+	function config() {
+		ConfigIAB.addPreferredStoreNames(ConfigIAB.StoreNameEnum.YANDEX);
+		ConfigIAB.addPreferredStoreNames(ConfigIAB.StoreNameEnum.GOOGLE);
+	  	YANDEX_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlZWMVFADb5IVQEBAQb66OHobeIvbVO2mmVW77/tWEi73P0aGIzm1QXi6t3vBFroeniYvKmhpmfdmVn27WshPz0G3NZeJANX/Fppm0yxv3PPeP6+AFnzXQpi+WCByTQf8YQxpv9oKFMhemdL5BRLE/XP0L5i9QJwccBSqaIKTBi4eN3+qaS1xp9DU95Mf7TK748LencM8fZfkCdahj0Zp9O53ZDvLLKiZdKV3DDgqiHewR68Cw4nY1mWyM/RkNBdtvFgmZvD6rhAjGmoQyjNbg8keuX1krwNHZxWz6YYRKsmlr3iP6dKSYGtDYmv6qPOVnAxRYpD8Bf95HQ9quk04jwIDAQAB";
+	  	GOOGLE_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkfzN/N+50a3yV94N8QK8TTdvex44EbcOCYew3Nrl2iHHnzcVMT7Dz43tLDQIzUFfyKbnoXYv2Wgfg4OZcaHm6DeLs9PcvotlBNsL8quE0JRmf/sDAKtceLonKrus3nvQyKCQn+yzxRYSX5LwDjmwo92y8g1WlmrjV1OcwgmhuPq8WwEILtxszzqO4fp+T15q2lwnjiaJdeFG3d2d17b1mzTFHV8yCPvZV+0FsEmeISwYGZSwW4AUFU1JhbeXbHUILVT+1TkPaXPJ0XohpdMSB2ov9o6K43a2IhyTEwDxBq38VWWLmu+hBpX33775ssU+WpHJpcxG6fU9eVolkRAYFQIDAQAB";
+	  	SLIDEME_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApLMWn4JfC/nej9ZtWQWwRjBRr1gH9l8q5H2c2b04thzbgGS9pmv/N4KsSZhB23Da+yQUMbFHktDzeMVGFC23WOb/aZlvremzZ6kUN/fF67XfH+Znp03thCXpE4I/TWKqWjLtc8dw1wpSsPvG7wRPmiAut9zsXpARuH2FCecxhnTocouCtDjbzVFhf3r6905Q0lTGyRg7t6mDXDHOEhA3rAO/RwRi8IE0XeDamNHUlzjKzUtDPopJQjG5hWVkw32LIeil1mDxPhV5y6sRNlZGuSYcS/QiaYO++JYCKhmQn2VQG775vY+bVsCrwnK+ZDpn7bAnL3WeB/VMMDd6Phb66wIDAQAB";
+
+		ConfigIAB.addStoreKeys(ConfigIAB.StoreNameEnum.GOOGLE, GOOGLE_PUBLIC_KEY);
+		ConfigIAB.addStoreKeys(ConfigIAB.StoreNameEnum.YANDEX, YANDEX_PUBLIC_KEY);
+		ConfigIAB.addStoreKeys(ConfigIAB.StoreNameEnum.SLIDE_ME, SLIDEME_PUBLIC_KEY);
+		ConfigIAB.setVerifyMode(ConfigIAB.verifyModeEnum.VERIFY_SKIP);
+        CommonIAB.init(commonSuccessHandler, commonErrorHandler, ConfigIAB.toJson());
+	}
+
+```
 
 # Support
 
@@ -200,3 +227,4 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [appltoid_store]: http://m.aptoide.com/
 [appmall_store]: http://www.openmobileww.com/#!appmall/cunq
 [apache2_license]: http://opensource.org/licenses/Apache-2.0
+[wiki_page]:https://github.com/ClausKinz/CommonIAB/wiki
