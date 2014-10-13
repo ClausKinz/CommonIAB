@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+ 	<script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="./commoniab.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+        console.warn("onDeviceReady into");
+        console.log("This is a log message!");
+        console.error("And this is an error message!");
+    }
+
+    /** Inspects all methods and properties of selected object.
+     * @param {Object} o Object for analysis
+     * @return {String} All methods and properties of selected object.
+     */
+    function listAllProperties(o){
+    	var objectToInspect;
+    	var result = [];
+
+	    for(objectToInspect = o; objectToInspect !== null; objectToInspect = Object.getPrototypeOf(objectToInspect)){
+	    	result = result.concat(Object.getOwnPropertyNames(objectToInspect));
+	    }
+	    return result;
+    }
+
+    /** Displays logger information.
+     * @param {String} msg Message to representation
+     */
+    function logger(msg){
+        alert(msg);
+//        console.log(msg);
+    }
+
+    </script>
+ 
+ 	<script type="text/javascript" charset="utf-8">
+    // Saves last purchased item(doed not restore between sessions)
+    var lastPurchasedItemsInJson = "";
+
+    // SKUs are used for working with in app purchases.
+    SKU_PREMIUM = "sku_premium";
+    SKU_SUBSCRIPTION = "sku_subscription";
+
+    SKU_DO_PURCHASE4GOOGLE = "sku_purchase";
+    SKU_CANCEL_PURCHASE4GOOGLE = "sku_cancel";
+    SKU_REFUNDED_PURCHASE4GOOGLE = "sku_refunded";
+    SKU_UNAVAIBLE_PURCHASE4GOOGLE = "sku_unavaibale";
+
+    /** Default success handler for operations.
+     * @param {String|Object} result Data to process
+     */
+	function commonSuccessHandler (result) {
+    	var strResult = "";
+        if(typeof result === 'object') {
+        	strResult = JSON.stringify(result);
+        } else {
+        	strResult = result;
+        }
+        logger("SUCCESS: \r\n"+strResult );
+	}
+			
+    /** Default error handler for operations.
+     * @param {String|Object} error Error to process
+     */
+	function commonErrorHandler (error) {
+		logger("ERROR: \r\n"+error );
+	}
+
+    /** Configures and initializes in app purchase for different stores.
+     *  To configure using ConfigIAB class, to init using CommonIAB
+     *  @see #ConfigIAB
+     *  @see #CommonIAB.init
+     */
+	function config() {
+        logger("configure/init the library");
+		ConfigIAB.addPreferredStoreNames(ConfigIAB.StoreNameEnum.YANDEX);
+		ConfigIAB.addPreferredStoreNames(ConfigIAB.StoreNameEnum.GOOGLE);
+	  	YANDEX_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlZWMVFADb5IVQEBAQb66OHobeIvbVO2mmVW77/tWEi73P0aGIzm1QXi6t3vBFroeniYvKmhpmfdmVn27WshPz0G3NZeJANX/Fppm0yxv3PPeP6+AFnzXQpi+WCByTQf8YQxpv9oKFMhemdL5BRLE/XP0L5i9QJwccBSqaIKTBi4eN3+qaS1xp9DU95Mf7TK748LencM8fZfkCdahj0Zp9O53ZDvLLKiZdKV3DDgqiHewR68Cw4nY1mWyM/RkNBdtvFgmZvD6rhAjGmoQyjNbg8keuX1krwNHZxWz6YYRKsmlr3iP6dKSYGtDYmv6qPOVnAxRYpD8Bf95HQ9quk04jwIDAQAB";
+	  	GOOGLE_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkfzN/N+50a3yV94N8QK8TTdvex44EbcOCYew3Nrl2iHHnzcVMT7Dz43tLDQIzUFfyKbnoXYv2Wgfg4OZcaHm6DeLs9PcvotlBNsL8quE0JRmf/sDAKtceLonKrus3nvQyKCQn+yzxRYSX5LwDjmwo92y8g1WlmrjV1OcwgmhuPq8WwEILtxszzqO4fp+T15q2lwnjiaJdeFG3d2d17b1mzTFHV8yCPvZV+0FsEmeISwYGZSwW4AUFU1JhbeXbHUILVT+1TkPaXPJ0XohpdMSB2ov9o6K43a2IhyTEwDxBq38VWWLmu+hBpX33775ssU+WpHJpcxG6fU9eVolkRAYFQIDAQAB";
+	  	SLIDEME_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApLMWn4JfC/nej9ZtWQWwRjBRr1gH9l8q5H2c2b04thzbgGS9pmv/N4KsSZhB23Da+yQUMbFHktDzeMVGFC23WOb/aZlvremzZ6kUN/fF67XfH+Znp03thCXpE4I/TWKqWjLtc8dw1wpSsPvG7wRPmiAut9zsXpARuH2FCecxhnTocouCtDjbzVFhf3r6905Q0lTGyRg7t6mDXDHOEhA3rAO/RwRi8IE0XeDamNHUlzjKzUtDPopJQjG5hWVkw32LIeil1mDxPhV5y6sRNlZGuSYcS/QiaYO++JYCKhmQn2VQG775vY+bVsCrwnK+ZDpn7bAnL3WeB/VMMDd6Phb66wIDAQAB";
+
+		ConfigIAB.addStoreKeys(ConfigIAB.StoreNameEnum.GOOGLE, GOOGLE_PUBLIC_KEY);
+		ConfigIAB.addStoreKeys(ConfigIAB.StoreNameEnum.YANDEX, YANDEX_PUBLIC_KEY);
+		ConfigIAB.addStoreKeys(ConfigIAB.StoreNameEnum.SLIDE_ME, SLIDEME_PUBLIC_KEY);
+		ConfigIAB.setVerifyMode(ConfigIAB.verifyModeEnum.VERIFY_SKIP);
+        CommonIAB.init(commonSuccessHandler, commonErrorHandler, ConfigIAB.toJson());
+        logger("finish to init the library");
+	}
+
+    /** Does association SKUs, supported stores and local representation of SKUs
+     *  Local representation of SKUs will be used from now on
+     *  Supported stores @see #ConfigIAB.StoreNameEnum
+     */
+	function mapSku() {
+        logger("do association between SKUs and stores");
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_PREMIUM,
+		                 ConfigIAB.StoreNameEnum.YANDEX, "sku_premium_yandex");
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_SUBSCRIPTION,
+		                 ConfigIAB.StoreNameEnum.YANDEX, "sku_subscription_yandex");
+
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_PREMIUM,
+		                 ConfigIAB.StoreNameEnum.GOOGLE, "sku_premium_google");
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_SUBSCRIPTION,
+		                 ConfigIAB.StoreNameEnum.GOOGLE, "sku_subscription_google");
+
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_PREMIUM,
+		                 ConfigIAB.StoreNameEnum.SLIDE_ME, "sku_premium_slideme");
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_SUBSCRIPTION,
+		                 ConfigIAB.StoreNameEnum.SLIDE_ME, "sku_subscription_slideme");
+
+       /* Does associate test SKUs with Google billing.it is special skus are provided by google for testing
+        * (emulate different billing events)
+        */
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_DO_PURCHASE4GOOGLE,
+		                 ConfigIAB.StoreNameEnum.GOOGLE, "android.test.purchased");
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_CANCEL_PURCHASE4GOOGLE,
+		                 ConfigIAB.StoreNameEnum.GOOGLE, "android.test.canceled");
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_REFUNDED_PURCHASE4GOOGLE,
+		                 ConfigIAB.StoreNameEnum.GOOGLE, "android.test.refunded");
+		CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_UNAVAIBLE_PURCHASE4GOOGLE,
+		                 ConfigIAB.StoreNameEnum.GOOGLE, "android.test.item_unavailable");
+        logger("finish to associate SKUs and stores");
+	}
+
+    /** Removes attached event handlers from the library*/
+	function unbind() {
+		CommonIAB.unbindService(commonSuccessHandler, commonErrorHandler);
+	}
+
+    /** Switches on debug mode with logging*/
+	function setDebugMode() {
+        logger("switch on debug mode for plugin");
+		CommonIAB.SetDebugMode(true);
+	}
+
+    /**  Gets in-app products that are associated with your application */
+	function getProductDetails() {
+        logger("Get products details, do query to store server");
+		CommonIAB.getProductDetails(commonSuccessHandler, commonErrorHandler);
+	}
+
+    /**  Gets in-app products with additional SKUs that are associated with your application */
+	function getProductDetailsWithSKU() {
+        logger("Get products details + aditional SKUs, do query to store server");
+		CommonIAB.getProductDetails(commonSuccessHandler, commonErrorHandler, "sku_error");
+	}
+
+    /**  Checks the status of subscription for the application
+     *   Returns result in JSON format, "result":"boolean"
+     */
+	function areSubscriptionsSupported() {
+        logger("check subscription status for current store");
+		CommonIAB.areSubscriptionsSupported(commonSuccessHandler);
+	}
+
+     /** Success handler for purchase operation.
+     * @param {String|Object} result Data to process
+     */
+	function purchaseProductSuccessHandler (result) {
+    	var strResult = "";
+        if(typeof result === 'object') {
+            lastPurchasedItemsInJson = result;
+        	strResult = JSON.stringify(result);
+        } else {
+        	strResult = result;
+        }
+        logger("purchase is successfully: " +  result);
+	}
+
+     /** Error handler for purchase operation.
+     * @param {String|Object} error Error to process
+     */
+	function purchaseProductErrorHandler (error) {
+        logger("purchase is ERROR : " +  result);
+	}
+
+    /** Purchases items with selected SKUs, tests all states of purchases
+     *  Use Google fake SKUs for this purpose.
+     */
+	function purchaseProduct() {
+	    // test all states of purchase with Google test/fake SKUs.
+        logger("purchase product with SKU" + SKU_DO_PURCHASE4GOOGLE);
+        developerPayload = "";
+		CommonIAB.purchaseProduct(purchaseProductSuccessHandler, purchaseProductErrorHandler,
+		    SKU_DO_PURCHASE4GOOGLE, developerPayload);
+
+        logger("purchase product with SKU" + SKU_CANCEL_PURCHASE4GOOGLE);
+		CommonIAB.purchaseProduct(purchaseProductSuccessHandler, purchaseProductErrorHandler,
+		    SKU_CANCEL_PURCHASE4GOOGLE, developerPayload);
+
+        logger("purchase product with SKU" + SKU_REFUNDED_PURCHASE4GOOGLE);
+		CommonIAB.purchaseProduct(purchaseProductSuccessHandler, purchaseProductErrorHandler,
+		    SKU_REFUNDED_PURCHASE4GOOGLE, developerPayload);
+
+        logger("purchase product with SKU" + SKU_UNAVAIBLE_PURCHASE4GOOGLE);
+		CommonIAB.purchaseProduct(purchaseProductSuccessHandler, purchaseProductErrorHandler,
+		    SKU_UNAVAIBLE_PURCHASE4GOOGLE, developerPayload);
+	}
+
+    /** Consumes selected purchased item.
+     *  Use Google fake SKUs for this purpose.
+     *  @see #purchaseProduct
+     */
+	function consumeProduct() {
+	    logger("consume product with SKU" + SKU_DO_PURCHASE4GOOGLE);
+        var lastPurchasedItem;
+        try {
+            while (lastPurchasedItemsInJson.length > 0) {
+                lastPurchasedItem = JSON.stringify(lastPurchasedItemsInJson.pop());
+        	    logger("Converted last purchased item to JSON:" + lastPurchasedItem);
+            }
+        } catch (error) {
+    	    logger("Can not convert to JSON:" + error.message);
+        }
+        CommonIAB.consumeProduct(commonSuccessHandler, commonErrorHandler, lastPurchasedItem);
+	}
+
+    /** Purchases subscription with selected SKUs, use real SKU.
+     *  Does not have Google fake SKUs for subscription.
+     */
+	function purchaseSubscription() {
+	    // need to use only actual SKUs,standard test SKUs from Google do not work.
+        developerPayload = "";
+        logger("purchase subscription with SKU" + SKU_SUBSCRIPTION);
+		CommonIAB.purchaseSubscription(commonSuccessHandler, commonErrorHandler, SKU_SUBSCRIPTION, developerPayload);
+	}
+
+     /** Success handler for get purchases operation.
+     * @param {String|Object} result Data to process
+     */
+	function getPurchasesSuccessHandler (result) {
+    	var strResult = "";
+        if(typeof result === 'object') {
+            lastPurchasedItemsInJson = result;
+        	strResult = JSON.stringify(result);
+        } else {
+        	strResult = result;
+        }
+        logger("get purchases result SUCCESS is:" + strResult);
+	}
+
+    /** Gets purchased item from local inventory
+     */
+	function getPurchases() {
+        logger("get purchases");
+		CommonIAB.getPurchases(getPurchasesSuccessHandler, commonErrorHandler);
+	}
+
+    /** Gets available products from local inventory
+     */
+	function getAvailableProducts() {
+        logger("get available products");
+		CommonIAB.getAvailableProducts(commonSuccessHandler, commonErrorHandler);
+	}
+	</script>
+	
+    </head>
+    <body>
+    <h2><font face="Georgia">CommonIAB cordova plugin</h2>
+        <p id="deviceProperties">Available functions(CommonIAB/ConfigIAB):</font></p>
+        <p align='center'>
+        <table width='100%'>
+            <tr>
+                <button onclick="config();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>Init()</font><br/><font color='blue'>Configure and initialize the library using ConfigIAB </font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="mapSku();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>MapSku(success, error, sku, storeName, storeSku)</font>
+                    <br/><font color='blue'>Do association between local sku, store sku</font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="unbind();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>UnbindService()</font>
+                    <br/><font color='blue'> Remove event handler and dispose the library</font>
+                </button>
+            </tr>
+            <br></br>
+            <tr>
+                <button onclick="setDebugMode();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>SetDebugMode(isDebugMode)</font>
+                    <br/><font color='blue'>Set on/off debug mode, addition log information</font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="getProductDetails();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>GetProductDetails(success, error)</font>
+                    <br/><font color='blue'>Get all owned items from the server</font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="getProductDetailsWithSKU();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>GetProductDetails(success, error, skus)</font>
+                    <br/><font color='blue'>Get all owned items, + addon skus from the server</font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="getPurchases();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>getPurchases(success,error)</font>
+                    <br/><font color='blue'>Return all purchases from inventory</font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="getAvailableProducts();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>getAvailableProducts(success,error)</font>
+                    <br/><font color='blue'>Return all available products from inventory</font>
+                </button>
+            </tr>
+            <br></br>
+            <tr>
+                <button onclick="purchaseProduct();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>purchaseProduct(success, error, sku, devPayload)</font>
+                    <br/><font color='blue'>Purchase product with associated sku </font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="consumeProduct();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>consumeProduct(success, error, purchase)</font>
+                    <br/><font color='blue'>Consume the product/subscription</font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="areSubscriptionsSupported();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>areSubscriptionsSupported(success)</font>
+                    <br/><font color='blue'>Return JSON "result:","true/false"</font>
+                </button>
+            </tr>
+            <tr>
+                <button onclick="purchaseSubscription();" style="width:100%;height:48px;font-size: 14px;">
+                    <font color='black'>purchaseSubscription(success,error,sku,devPayload)</font>
+                    <br/><font color='blue'>Purchase subscription with selected sku</font>
+                </button>
+            </tr>
+            <tr>
+                <p align='center'>Copyright (c) 2014 Claus Schmidt.</p>
+            </tr>
+        </table>
+        </p>
+    </body>
+</html>
