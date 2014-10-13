@@ -5,10 +5,10 @@ The essential purpose of In-app purchases are purchases made from within a mobil
 Users typically make an in-app purchase in order to access special content or features using in an app purchases such as special options, power-ups, virtual money, special characters, etc. The purchasing process is completed directly from within the app and is seamless to the user in most cases, with the mobile platform provider facilitating the purchase and taking a share of the money spent (usually in the range of 30% or so), with the rest going to the app developer.
 
 ### Examples of in-app purchases
-In-app purcahses are ideally suited for application that use aditional optional model, such as access to aditional content, special options, sunscribtion.
+In-app purcahses are ideally suited for application that use aditional optional model, such as access to aditional content, special options, subscribtions.
 
 ### Plugin's Purpose
-The purpose of the plugin is to create an Android stores independent javascript interface for [Cordova][cordova] based on [openiab][openiab] forked library. 
+The purpose of the plugin is to create an Android stores independent javascript interface for [Cordova][cordova] based on [OpenIAB][openiab] forked library. 
 
 ## Supported Android Stores:
 - [Google play][google_play]
@@ -24,6 +24,13 @@ The purpose of the plugin is to create an Android stores independent javascript 
 - **Android** *(SDK >=10)*<br>
 See [In-app purchases Guide][android_notification_guide] for detailed informations and screenshots.
 
+## Requirements
+- Phonegap 3.0, Android 2.6+
+- Purchasing and querying managed in-app items:
+    - Google Play client version 3.10.10 or higher, In-App billing v3.0
+    - Samsung In-App Purchase v 2.0
+    - Nokia In-App Payment API version ("3").
+    - Open Stores (Yandex, SlideMe, Appland, Apptoid, AppMail) in-app billing protocol v 1.0
 
 ## Installation
 The plugin can either be installed into the local development environment.
@@ -64,7 +71,7 @@ More informations can be found [here][PGB_plugin].
 ## Using the plugin
 The plugin creates the object ```CommonIAB``` with the following methods:
 
-1. [CommonIAB.ini][init]
+1. [CommonIAB.init][init]
 2. [CommonIAB.mapSku][mapSku]
 2. [CommonIAB.isDebugLog][isDebugLog]
 5. [CommonIAB.SetDebugMode][SetDebugMode]
@@ -176,7 +183,7 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [code_style_js]:https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types
 [examples]: #examples
 [google_play]: https://play.google.com/store
-[samsung_store]: http://apps.samsung.com/earth/main/getMain.as?COUNTRY_CODE=US
+[samsung_store]: http://apps.samsung.com/mars/main/getMain.as?COUNTRY_CODE=USA
 [yandex_store]: http://store.yandex.com/
 [nokia_store]: http://developer.nokia.com/nokia-x/publish-your-app
 [slideme_store]: http://slideme.org/
