@@ -172,7 +172,7 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [getPurchases]: #returns_all_purchases_from_inventory
 [getAvailableProducts]: #get_available_products_from_inventory
 [openiab]: http://onepf.org
-[[code_style_java]:http://source.android.com/source/code-style.html
+[code_style_java]:http://source.android.com/source/code-style.html
 [code_style_js]:https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types
 [examples]: #examples
 [google_play]: https://play.google.com/store
