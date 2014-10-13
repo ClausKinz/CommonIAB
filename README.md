@@ -67,7 +67,8 @@ More informations can be found [here][PGB_plugin].
 - See the [v0.1.x TODO List][todo_list] for upcomming changes and other things.
 
 ## Using the plugin
-The plugin creates  objects ```CommonIAB``` and ```ConfigIAB```. ```ConfigIAB``` uses to set up all In-App purchases parameters to initialize the library. More information is available on [Wiki page][wiki_page]. 
+The plugin creates  objects ```CommonIAB``` and ```ConfigIAB```. ```ConfigIAB``` uses to set up  In-App billing parameters to initialize the library. ```CommonIAB``` is basis class to manage In-App purchases.
+More information is available on [Wiki page][wiki_page]. 
 
 ### Plugin initialization
 The plugin and its methods are not available before the *deviceready* event has been fired.
@@ -79,6 +80,14 @@ document.addEventListener('deviceready', function () {
 ```
 
 The plugin must use ```ConfigIAB``` class to set up initial parameters for correct working of In-App Billing.<br>
+After finish to set up billing parameters, you have to execute CommonIAB.init
+`CommonIAB.init(successCallback, errorCallback, options)`<br>
+Initializes the In-App billing library.
+A callback to be called when the function finishes The function passes one argument to callback: {String|Object} result to processing
+ * **Parameters:**
+   * `successCallback` — `Function` — Success handler for processing result
+   * `errorCallback` — `Function` — Error handler for processing error
+   * `options` — `String` — Json representation of config object. Use ```ConfigIAB.toJson()```
 
 #### Example code
 Call the following code inside onDeviceReady(), because only after device ready you will have the plugin working.
@@ -97,14 +106,14 @@ Call the following code inside onDeviceReady(), because only after device ready 
         } else {
         	strResult = result;
         }
-        logger("SUCCESS: \r\n"+strResult );
+        alert("SUCCESS: \r\n"+strResult );
 	}
 			
     /** Default error handler for operations.
      * @param {String|Object} error Error to process
      */
 	function commonErrorHandler (error) {
-		logger("ERROR: \r\n"+error );
+		alert("ERROR: \r\n"+error );
 	}
 
     /** Configures and initializes in app purchase for different stores.
@@ -125,8 +134,41 @@ Call the following code inside onDeviceReady(), because only after device ready 
 		ConfigIAB.setVerifyMode(ConfigIAB.verifyModeEnum.VERIFY_SKIP);
         CommonIAB.init(commonSuccessHandler, commonErrorHandler, ConfigIAB.toJson());
 	}
-
 ```
+
+### Set up SKUs
+Each Android Store has own rules of named SKUs. Thus to implification of operations between different stores and application logic, we use conception of "local SKU". "local SKU" is used to manage with SKU. ComminIAB does association local sku and selected android store automaticaly (on depends of what store is used for your app). 
+
+`CommonIAB.mapSku(successCallback, errorCallback, sku, storeName, storeSku)`
+
+ Does association beetween local SKU and android store SKU
+ * **Parameters:**
+   * `successCallback` — `Function` — Success handler for processing result
+   * `errorCallback` — `Function` — Error handler for processing error
+   * `sku` — `String` — Local SKU(product id).
+   * `storeName` — `String` — Android store name, see [ConfigIAB.StoreNameEnum on Wiki][wiki_page]
+   * `storeSku` — `String` — SKU in android store<br>
+
+#### Example code
+```javascript
+    SKU_PREMIUM = "sku_premium";
+    SKU_SUBSCRIPTION = "sku_subscription";
+    CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_PREMIUM,
+		     ConfigIAB.StoreNameEnum.GOOGLE, "sku_premium_google");
+    CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_SUBSCRIPTION,
+		     ConfigIAB.StoreNameEnum.GOOGLE, "sku_subscription_google");
+
+    CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_PREMIUM,
+		     ConfigIAB.StoreNameEnum.YANDEX, "sku_premium_yandex");
+    
+    CommonIAB.mapSku(commonSuccessHandler, commonErrorHandler, SKU_SUBSCRIPTION,
+		     ConfigIAB.StoreNameEnum.YANDEX, "sku_subscription_yandex");
+```
+### Do purchases/subscriptions
+
+### Manage purchases/products
+
+### Helpfull methods
 
 # Support
 
