@@ -68,9 +68,8 @@ ConfigIAB.prototype.addStoreKeys = function(storeName, StoreKey) {
     this.storeKeys.put(storeName, StoreKey);
 };
 
-/** Added store public key for selected store.
- * @param {String} storeName Android store name, @see #ConfigIAB.StoreNameEnum
- * @param {String} StoreKey Android store public key, this key is got from developer console of the store.
+/** Checks inventory or not.
+ * @param {boolean} isEnabled  Checks inventory when the library is initialized
  */
 ConfigIAB.prototype.setCheckInventory = function(isEnabled) {
     this.checkInventory = isEnabled;
