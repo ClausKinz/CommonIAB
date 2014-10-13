@@ -164,7 +164,7 @@ Each Android Store has own rules of named SKUs. Thus to implification of operati
 		     ConfigIAB.StoreNameEnum.YANDEX, "sku_subscription_yandex");
 ```
 ### Do purchases/subscriptions
-`CommonIAB.purchaseProduct(successCallback, errorCallback, sku, developerPayload)`
+`CommonIAB.purchaseProduct(successCallback, errorCallback, sku, developerPayload)`<br>
 Purchases the product with the selected SKU and developerPayload The function passes one argument to successCallback: {Object} purchased item in json
 
  * **Parameters:**
@@ -173,8 +173,7 @@ Purchases the product with the selected SKU and developerPayload The function pa
    * `sku` — `String` — SKU product id
    * `developerPayload` — `String` — Token to verify your purchase request to store
 
-`CommonIAB.purchaseSubscription(successCallback, errorCallback, sku, developerPayload)`
-
+`CommonIAB.purchaseSubscription(successCallback, errorCallback, sku, developerPayload)`<br>
 Purchases the subscription with the selected SKU and developerPayload The function passes one argument to successCallback: {Object} purchased item in json
 
  * **Parameters:**
@@ -183,8 +182,7 @@ Purchases the subscription with the selected SKU and developerPayload The functi
    * `sku` — `String` — SKU product id
    * `developerPayload` — `String` — token to verify your subscription request to store
 
-`CommonIAB.consumeProduct(successCallback, errorCallback, purchase)`
-
+`CommonIAB.consumeProduct(successCallback, errorCallback, purchase)`<br>
 Consumes the purchased product The function passes one argument to successCallback: {Object} purchased item in json
 
  * **Parameters:**
@@ -219,31 +217,31 @@ function purchaseSubscription() {
 ```
 
 ### Manage purchases/products
-`CommonIAB.getProductDetails(successCallback, errorCallback)`
+`CommonIAB.getProductDetails(successCallback, errorCallback)`<br>
 Gets Product details information from the android store server using SKUs from inventory. This method may block or take long to execute. Do not call from a UI thread. TODO: rewrite to the non-blocking version refreshInventoryAsync The function passes one argument to successCallback: {Object} result in json
  * **Parameters:**
    * `successCallback` — `Function` — Success handler for processing result
    * `errorCallback` — `Function` — Error handler for processing error
 
-`CommonIAB.getProductDetails(successCallback, errorCallback, skus)`
+`CommonIAB.getProductDetails(successCallback, errorCallback, skus)`<br>
 Gets Product details information from the android store server using inventory SKUs and additional SKUs. The function passes one argument to successCallback: {Object} result in json
  * **Parameters:**
    * `successCallback` — `Function` — Success handler for processing result
    * `errorCallback` — `Function` — Error handler for processing error
 
-`CommonIAB.getPurchases(successCallback, errorCallback)`
+`CommonIAB.getPurchases(successCallback, errorCallback)`<br>
 Returns all purchases from local inventory. The function passes one argument to successCallback: {Object} purchased products in json
  * **Parameters:**
    * `successCallback` — `Function` — Success handler for processing result
    * `errorCallback` — `Function` — Error handler for processing error
 
-`CommonIAB.getAvailableProducts(successCallback, errorCallback)`
+`CommonIAB.getAvailableProducts(successCallback, errorCallback)`<br>
 Returns all available products for the current store. The function passes one argument to successCallback: {Object} available products in json
  * **Parameters:**
    * `successCallback` — `Function` — Success handler for processing result
    * `errorCallback` — `Function` — Error handler for processing error
 
-`CommonIAB.unbindService(successCallback, errorCallback)`
+`CommonIAB.unbindService(successCallback, errorCallback)`<br>
 Disconnect from in app billing service.
  
 #### Example code
@@ -278,14 +276,14 @@ function getAvailableProducts() {
 ```
  
 ### Helpfull methods
-`CommonIAB.areSubscriptionsSupported(successCallback)`
+`CommonIAB.areSubscriptionsSupported(successCallback)`<br>
 Checks subscriptions state. The function passes one argument to successCallback: {Object} result in json {"result:Boolean"}
 
-`CommonIAB.isDebugLog()`
+`CommonIAB.isDebugLog()`<br>
 Is debug mode enabled, gives more information about operations with billing
  * **Returns:** `true` — if logging is enabled
 
-`CommonIAB.SetDebugMode(isDebugMode)`
+`CommonIAB.SetDebugMode(isDebugMode)`<br>
 Switches on debug mode for in app billing functionality
  * **Parameters:** `isDebugMode` — `Boolean` — debug mode state
 
@@ -365,18 +363,6 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [PGB_plugin]: https://build.phonegap.com/plugins/413
 [changelog]: RELEASENOTES.md
 [todo_list]: ../../issues/1
-[init]: #initializes_the_library_using_ConfigIAB
-[mapSku]: #does_association_between_local_sku_store_sku
-[unbindService]: #removes_event_handler_and_dispose_the_library
-[isDebugLog]: #checks_debug_mode_indication
-[SetDebugMode]: #set_on_off_debug_mode
-[getProductDetails]: #gets_all_owned_items_from_android_store
-[areSubscriptionsSupported]: #are_subscriptions_supported
-[purchaseProduct]: #purchases_product_with_associated_sku
-[purchaseSubscription]: #purchases_subscription_with_selected_sku
-[consumeProduct]: #consumes_the_product_subscription
-[getPurchases]: #returns_all_purchases_from_inventory
-[getAvailableProducts]: #get_available_products_from_inventory
 [openiab]: http://onepf.org
 [code_style_java]:http://source.android.com/source/code-style.html
 [code_style_js]:https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types
