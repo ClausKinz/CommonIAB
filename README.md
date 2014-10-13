@@ -7,10 +7,10 @@ Users typically make an in-app purchase in order to access special content or fe
 ### Examples of in-app purchases
 In-app purcahses are ideally suited for application that use aditional optional model, such as access to aditional content, special options, subscribtions.
 
-### Plugin's Purpose
+## Plugin's Purpose
 The purpose of the plugin is to create an Android stores independent javascript interface for [Cordova][cordova] based on [OpenIAB][openiab] forked library. 
 
-## Supported Android Stores:
+### Supported Android Stores:
 - [Google play][google_play]
 - [Samsung][samsung_store]
 - [Nokia][nokia_store]
@@ -20,11 +20,11 @@ The purpose of the plugin is to create an Android stores independent javascript 
 - [Apptoid][appltoid_store]
 - [AppMall][appmall_store]
 
-## Supported Platforms
+### Supported Platforms
 - **Android** *(SDK >=10)*<br>
 See [In-app purchases Guide][android_notification_guide] for detailed informations and screenshots.
 
-## Requirements
+### Requirements
 - Phonegap 3.0, Android 2.6+
 - Purchasing and querying managed in-app items:
     - Google Play client version 3.10.10 or higher, In-App billing v3.0
@@ -47,7 +47,6 @@ Through the [Command-line Interface][CLI]:
 ```bash
 cordova plugins rm org.commoniab
 ```
-
 ### PhoneGap Build
 Add the following xml to your config.xml to always use the latest version of this plugin:
 ```xml
@@ -59,13 +58,12 @@ or to use an specific version:
 ```
 More informations can be found [here][PGB_plugin].
 
-
 ## ChangeLog
 #### Version 0.0.5 (not yet released)
 - [feature:] initial implementation 
 
 #### Further informations
-- See [CHANGELOG.md][changelog] to get the full changelog for the plugin.
+- See [RELEASENOTES.md][changelog] to get the full changelog for the plugin.
 - See the [v0.1.x TODO List][todo_list] for upcomming changes and other things.
 
 ## Using the plugin
@@ -88,9 +86,77 @@ The plugin and its methods are not available before the *deviceready* event has 
 
 ```javascript
 document.addEventListener('deviceready', function () {
-    // window.plugin.notification.local is now available
+    // CommonIAB is now available
 }, false);
 ```
+
+The plugin must use ```ConfigIAB``` class to set up initial parameters for correct working of In-App Billing.<br>
+ConfigIAB has the following methods:<br>
+- ConfigIAB.addStoreKeys
+- ConfigIAB.addPreferredStoreNames
+- ConfigIAB.setCheckInventory
+- ConfigIAB.setDiscoveryTimeout
+- ConfigIAB.setVerifyMode
+- ConfigIAB.setCheckInventoryTimeout
+- ConfigIAB.setSamsungCertificationRequestCode
+- ConfigIAB.toJson
+
+```javascript
+ConfigIAB.addStoreKeys(storeName, StoreKey)
+```
+Added store public key for selected store.<br>
+parameters
+* storeName :  Android store name, see [ConfigIAB.StoreNameEnum](./www/configiab.js#L33).
+* storeName :  Android store public key, this key is got from developer console of the store.
+
+```javascript
+ConfigIAB.setCheckInventory(isEnabled)
+```
+Checks inventory or not.<br>
+parameters
+* isEnabled : Checks inventory when the library is initialized
+
+```javascript
+ConfigIAB.addPreferredStoreNames(store)
+```
+Added store name to list of preferred stores.
+Preferred store is used for checking in app functionality for selected store, if there are multiply stores are installed
+on your device. this option works only if your application is installed using adb command.
+parameters<br>
+* store : Android store name, see [ConfigIAB.StoreNameEnum](./www/configiab.js#L33).
+
+```javascript
+ConfigIAB.setDiscoveryTimeout(timeout)
+```
+Sets up discovery time to look up process for open stores.<br>
+parameters
+* timeout :  Amount of ms to find all OpenStores on device. the default value is 5000ms
+
+```javascript
+ConfigIAB.setVerifyMode(mode)
+```
+Sets up verify mode, the library could skip receipt verification by publicKey for GooglePlay and OpenStores.<br>
+parameters
+* mode : Verify mode for process billing, see [verifyModeEnum](./www/configiab.js#L28)
+
+```javascript
+ConfigIAB.setCheckInventoryTimeout(timeout)
+```
+Sets up check inventory  timeout to look up process.<br>
+parameters
+* timeout : Amount of ms to check inventory. The default value is 10000ms
+
+```javascript
+ConfigIAB.setSamsungCertificationRequestCode(code)
+```
+Sets request code for Samsung certification<br>
+parameters
+* code : Request code. Must be positive value
+
+```javascript
+ConfigIAB.toJson()
+```
+Convert option to JSON. It is used to transfer Options to In-App Billing library durring init stage.<br>
 
 # Support
 
@@ -164,7 +230,7 @@ This software is released under the [Apache 2.0 License][apache2_license].
 [CLI]: http://cordova.apache.org/docs/en/3.0.0/guide_cli_index.md.html#The%20Command-line%20Interface
 [PGB]: http://docs.build.phonegap.com/en_US/3.3.0/index.html
 [PGB_plugin]: https://build.phonegap.com/plugins/413
-[changelog]: CHANGELOG.md
+[changelog]: RELEASENOTES.md
 [todo_list]: ../../issues/1
 [init]: #initializes_the_library_using_ConfigIAB
 [mapSku]: #does_association_between_local_sku_store_sku
