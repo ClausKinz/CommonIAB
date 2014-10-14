@@ -25,7 +25,7 @@ The purpose of the plugin is to create an Android stores independent javascript 
 See [In-app purchases Guide][android_notification_guide] for detailed informations and screenshots.
 
 ### Requirements
-- Phonegap 3.0, Android 2.6+
+- Phonegap 3.0, Android 2.3.3+
 - Purchasing and querying managed in-app items:
     - Google Play client version 3.10.10 or higher, In-App billing v3.0
     - Samsung In-App Purchase v 2.0
